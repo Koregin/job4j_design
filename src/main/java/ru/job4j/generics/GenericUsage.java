@@ -27,9 +27,6 @@ public class GenericUsage {
     }
 
     public static void main(String[] args) {
-//        List<Integer> l = List.of(1, 2, 3, 4, 5);
-//        new GenericUsage().printRsl(l);
-
         List<Person> per = List.of(new Person("name", 21, new Date(913716000000L)));
         new GenericUsage().printInfo(per);
 
