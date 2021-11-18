@@ -14,53 +14,16 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        T found = findById(id);
-        boolean res = false;
-        String foundkey = null;
-        if (found != null) {
-            for (String key : mem.keySet()) {
-                if (mem.get(key).equals(found)) {
-                    foundkey = key;
-                    break;
-                }
-            }
-        }
-        if (foundkey != null) {
-            mem.replace(foundkey, model);
-            res = true;
-        }
-        return res;
+        return mem.replace(id, model) != null;
     }
 
     @Override
     public boolean delete(String id) {
-        T found = findById(id);
-        boolean res = false;
-        String foundkey = null;
-        if (found != null) {
-            for (String key : mem.keySet()) {
-                if (mem.get(key).equals(found)) {
-                    foundkey = key;
-                    break;
-                }
-            }
-        }
-        if (foundkey != null) {
-            mem.remove(foundkey);
-            res = true;
-        }
-        return res;
+        return mem.remove(id) != null;
     }
 
     @Override
     public T findById(String id) {
-        T findOb = null;
-        for (T modelvalue : mem.values()) {
-            if (modelvalue.getId().equals(id)) {
-                findOb = modelvalue;
-                break;
-            }
-        }
-        return findOb;
+        return mem.getOrDefault(id, null);
     }
 }
