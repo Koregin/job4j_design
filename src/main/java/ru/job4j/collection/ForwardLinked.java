@@ -20,6 +20,7 @@ public class ForwardLinked<T> implements Iterable {
     }
 
     public boolean revert() {
+        boolean result = false;
         if (head != null && head.next != null) {
             Node<T> previous = null;
             Node<T> current = head;
@@ -31,9 +32,9 @@ public class ForwardLinked<T> implements Iterable {
                 current = next;
             }
             head = previous;
-            return true;
+            result = true;
         }
-        return false;
+        return result;
     }
 
     public void addFirst(T value) {
