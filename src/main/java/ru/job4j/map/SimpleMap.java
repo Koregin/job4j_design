@@ -23,30 +23,37 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean result = false;
-        if (count < capacity) {
-            int index = indexFor(hash(key.hashCode()));
+        if (count >= capacity * LOAD_FACTOR) {
+            expand();
+        }
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
             result = true;
         }
-        if (count >= capacity * LOAD_FACTOR) {
-            expand();
-        }
         return result;
     }
 
     private int hash(int hashCode) {
-        return hashCode % capacity;
+        return hashCode % (capacity - 1);
     }
 
     private int indexFor(int hash) {
-        return hash & (capacity - 1);
+        return hash % capacity;
     }
 
     private void expand() {
-        table = Arrays.copyOf(table, table.length * 2);
         capacity *= 2;
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (MapEntry<K, V> entry : table) {
+            if (entry != null) {
+                int newIndex = indexFor(hash(entry.key.hashCode()));
+                newTable[newIndex] = entry;
+            }
+        }
+        table = newTable;
     }
 
     @Override
@@ -86,10 +93,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (table[point] == null && point < capacity - 1) {
+                while (point < capacity - 1 && table[point] == null) {
                     point++;
                 }
-                return point < capacity - 1;
+                return table[point] != null;
             }
 
             @Override

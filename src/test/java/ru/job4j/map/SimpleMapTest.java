@@ -23,8 +23,7 @@ public class SimpleMapTest {
     public void whenPutTwoEqualElements() {
         SimpleMap<Integer, String> simpleMap = new SimpleMap<>();
         assertTrue(simpleMap.put(1, "Hello"));
-        assertTrue(simpleMap.put(1, "World"));
-        assertThat(simpleMap.get(1), is("World"));
+        assertFalse(simpleMap.put(1, "World"));
     }
 
     @Test
@@ -36,6 +35,7 @@ public class SimpleMapTest {
         assertTrue(simpleMap.put(4, "d"));
         assertTrue(simpleMap.put(5, "e"));
         assertTrue(simpleMap.put(6, "f"));
+        assertTrue(simpleMap.put(7, "g"));
         assertThat(simpleMap.getCapacity(), is(16));
     }
 
