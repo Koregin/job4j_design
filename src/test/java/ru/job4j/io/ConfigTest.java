@@ -38,4 +38,18 @@ public class ConfigTest {
         assertThat(config.value("user"), is("Ivanov Danil"));
         assertThat(config.value("password"), is("pass"));
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenPairWithSeveralEqually() {
+        String path = "./data/pair_with_several_equally.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenPairWithSeveralEquallyInARow() {
+        String path = "./data/pair_with_several_equally_in_a_row.properties";
+        Config config = new Config(path);
+        config.load();
+    }
 }

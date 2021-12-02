@@ -8,7 +8,7 @@ import java.io.FileReader;
 public class Config {
 
     private final String path;
-    private Map<String, String> values = new HashMap<>();
+    private final Map<String, String> values = new HashMap<>();
 
     public Config(final String path) {
         this.path = path;
@@ -18,9 +18,9 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String line;
             while ((line = read.readLine()) != null) {
-                if (line.length() > 0 && !line.contains("#")) {
+                if (!line.contains("#") && line.contains("=")) {
                     String[] pair = line.split("=");
-                    if (pair[0].length() < 1 || pair.length < 2) {
+                    if (pair[0].length() < 1 || pair.length != 2) {
                         throw new IllegalArgumentException("Not right record in config. Record should be 'key=value'");
                     }
                     values.put(pair[0], pair[1]);
