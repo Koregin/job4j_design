@@ -8,16 +8,18 @@ public class Analizy {
         PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             String line;
             StringBuilder sb = new StringBuilder();
+            final int STATUS = 0;
+            final int DATETIME = 1;
             boolean unavailable = false;
             while ((line = read.readLine()) != null) {
                 String[] pair = line.split("\\s+");
-                if (!unavailable && (pair[0].equals("400") || pair[0].equals("500"))) {
+                if (!unavailable && ("400".equals(pair[STATUS]) || "500".equals(pair[STATUS]))) {
                     unavailable = true;
-                    sb.append(pair[1]).append(";");
+                    sb.append(pair[DATETIME]).append(";");
                 }
-                if (unavailable && (!pair[0].equals("400") && !pair[0].equals("500"))) {
+                if (unavailable && (!"400".equals(pair[STATUS]) && !"500".equals(pair[STATUS]))) {
                     unavailable = false;
-                    sb.append(pair[1]).append(";");
+                    sb.append(pair[DATETIME]).append(";");
                     out.println(sb);
                     sb.setLength(0);
                 }
