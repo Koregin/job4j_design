@@ -15,7 +15,7 @@ public class Search {
         }
         Path start = Paths.get(args[0]);
         try {
-            search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+            search(start, p -> p.toFile().getName().endsWith("." + args[1])).forEach(System.out::println);
         } catch (NoSuchFileException exc) {
             System.out.println("Searching path isn't exist");
         }
