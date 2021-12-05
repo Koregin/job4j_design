@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +12,29 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
-        final int PARAM = 0;
-        final int VALUE = 1;
         if (args.length < 1) {
-            throw new IllegalArgumentException("Error arguments. Argument should be 'key=value'");
+            exception();
         }
         for (String string : args) {
-            String[] pair = string.split("=");
-            if (pair[PARAM].length() < 1 || pair.length != 2) {
-                throw new IllegalArgumentException("Error arguments. Argument should be 'key=value'");
+            String[] pair = new String[2];
+            if (checkParams(string)) {
+                 pair = string.split("=");
+            } else {
+                exception();
             }
-            values.put(pair[PARAM].substring(1), pair[VALUE]);
+            if (pair.length != 2) {
+                exception();
+            }
+            values.put(pair[0].substring(1), pair[1]);
         }
+    }
+
+    private void exception() {
+        throw new IllegalArgumentException("Error arguments. Argument should be '-key=value'");
+    }
+
+    private boolean checkParams(String params) {
+        return params.startsWith("-") && !params.endsWith("=") && params.contains("=");
     }
 
     public static ArgsName of(String[] args) {

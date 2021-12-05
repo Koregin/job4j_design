@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.io;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -28,5 +28,15 @@ public class ArgsNameTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenWrongSomeArgument() {
         ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx="});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongStartArgument() {
+        ArgsName jvm = ArgsName.of(new String[] {"enconding==UTF-8", "-Xmx=445"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongWithSeveralEquals() {
+        ArgsName jvm = ArgsName.of(new String[] {"-enconding==UTF-8", "-Xmx=445"});
     }
 }
