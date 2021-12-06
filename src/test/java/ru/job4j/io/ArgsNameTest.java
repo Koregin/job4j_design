@@ -39,4 +39,9 @@ public class ArgsNameTest {
     public void whenWrongWithSeveralEquals() {
         ArgsName jvm = ArgsName.of(new String[] {"-enconding==UTF-8", "-Xmx=445"});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongWithEmptyKey() {
+        ArgsName jvm = ArgsName.of(new String[] {"-=UTF-8", "-Xmx=445"});
+    }
 }

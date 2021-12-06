@@ -12,6 +12,8 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
+        final int PARAM = 0;
+        final int VALUE = 1;
         if (args.length < 1) {
             exception();
         }
@@ -22,10 +24,10 @@ public class ArgsName {
             } else {
                 exception();
             }
-            if (pair.length != 2) {
+            if (pair.length != 2 || pair[PARAM].length() < 2) {
                 exception();
             }
-            values.put(pair[0].substring(1), pair[1]);
+            values.put(pair[PARAM].substring(1), pair[VALUE]);
         }
     }
 
