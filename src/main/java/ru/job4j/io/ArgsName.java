@@ -15,24 +15,19 @@ public class ArgsName {
         final int PARAM = 0;
         final int VALUE = 1;
         if (args.length < 1) {
-            exception();
+            throw new IllegalArgumentException("Error arguments. Argument should be '-key=value'");
         }
         for (String string : args) {
             String[] pair = new String[2];
-            if (checkParams(string)) {
-                 pair = string.split("=");
-            } else {
-                exception();
+            if (!checkParams(string)) {
+                throw new IllegalArgumentException("Error arguments. Argument should be '-key=value'");
             }
+            pair = string.split("=");
             if (pair.length != 2 || pair[PARAM].length() < 2) {
-                exception();
+                throw new IllegalArgumentException("Error arguments. Argument should be '-key=value'");
             }
             values.put(pair[PARAM].substring(1), pair[VALUE]);
         }
-    }
-
-    private void exception() {
-        throw new IllegalArgumentException("Error arguments. Argument should be '-key=value'");
     }
 
     private boolean checkParams(String params) {
