@@ -1,6 +1,8 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class ConsoleChat {
         List<String> phrasesList = new ArrayList<>();
         String phrase = "";
         try (BufferedReader botAns =
-                new BufferedReader(new FileReader(botAnswers))) {
+                new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
             while ((phrase = botAns.readLine()) != null) {
                 phrasesList.add(phrase);
             }
@@ -62,7 +64,7 @@ public class ConsoleChat {
 
     private void saveLog(List<String> log) {
         try (BufferedWriter bufLogs =
-                new BufferedWriter(new FileWriter(path))) {
+                new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8))) {
             for (String line : log) {
                 bufLogs.write(line);
                 bufLogs.newLine();
