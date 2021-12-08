@@ -12,8 +12,8 @@ public class CSVReader {
             throw new IllegalArgumentException("Not correct arguments. Usage: java -jar -path=source.csv -delimiter=\";\" -out=stdout -filter=columns");
         }
         ArgsName argsCSV = ArgsName.of(args);
-        if (argsCSV.get("path") != null && argsCSV.get("delimiter") != null
-                && argsCSV.get("out") != null && argsCSV.get("filter") != null) {
+        if (argsCSV.get("path") == null || argsCSV.get("delimiter") == null
+                && argsCSV.get("out") == null || argsCSV.get("filter") == null) {
             throw new IllegalArgumentException("Not correct arguments. Usage: java -jar -path=source.csv -delimiter=\";\" -out=stdout -filter=columns");
         }
         if (!Files.exists(Path.of(argsCSV.get("path")))) {
