@@ -29,6 +29,7 @@ public class ConsoleChat {
         while (!OUT.equals(userAnswer)) {
             try {
                 userAnswer = bufRead.readLine();
+                forLog.add(userAnswer);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -37,12 +38,11 @@ public class ConsoleChat {
             } else if (CONTINUE.equals(userAnswer)) {
                 stopAction = false;
             }
-            if (!stopAction) {
+            if (!stopAction && !OUT.equals(userAnswer)) {
                 String botAnswer = botAnswers.get((int) (Math.random() * botAnswers.size()));
                 System.out.println(botAnswer);
                 forLog.add(botAnswer);
             }
-            forLog.add(userAnswer);
         }
         saveLog(forLog);
         System.out.println("До свидания!");
