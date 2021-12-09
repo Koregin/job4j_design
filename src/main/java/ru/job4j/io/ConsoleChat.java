@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,27 +22,27 @@ public class ConsoleChat {
         String userAnswer = "";
         boolean stopAction = false;
         List<String> forLog = new ArrayList<>();
-        BufferedReader bufRead = new BufferedReader(
-                new InputStreamReader(System.in));
-        System.out.println("Начинаем чат:");
-        while (!OUT.equals(userAnswer)) {
-            try {
+        try (BufferedReader bufRead = new BufferedReader(
+                new InputStreamReader(System.in))) {
+            System.out.println("Начинаем чат:");
+            while (!OUT.equals(userAnswer)) {
                 userAnswer = bufRead.readLine();
                 forLog.add(userAnswer);
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (STOP.equals(userAnswer)) {
+                    stopAction = true;
+                } else if (CONTINUE.equals(userAnswer)) {
+                    stopAction = false;
+                }
+                if (!stopAction && !OUT.equals(userAnswer)) {
+                    String botAnswer = botAnswers.get((int) (Math.random() * botAnswers.size()));
+                    System.out.println(botAnswer);
+                    forLog.add(botAnswer);
+                }
             }
-            if (STOP.equals(userAnswer)) {
-                stopAction = true;
-            } else if (CONTINUE.equals(userAnswer)) {
-                stopAction = false;
-            }
-            if (!stopAction && !OUT.equals(userAnswer)) {
-                String botAnswer = botAnswers.get((int) (Math.random() * botAnswers.size()));
-                System.out.println(botAnswer);
-                forLog.add(botAnswer);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         saveLog(forLog);
         System.out.println("До свидания!");
     }
