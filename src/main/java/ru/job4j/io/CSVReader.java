@@ -30,9 +30,11 @@ public class CSVReader {
         String delimiter = argsName.get("delimiter");
         String out = argsName.get("out");
         String filter = argsName.get("filter");
-        PrintWriter printer = new PrintWriter(out);
+        PrintWriter printer;
         if ("stdout".equals(out)) {
             printer = new PrintWriter(System.out);
+        } else {
+            printer = new PrintWriter(out);
         }
         try (Scanner scanner = new Scanner(new FileReader(sourceCSV));
              BufferedWriter bufWrite = new BufferedWriter(printer)) {
