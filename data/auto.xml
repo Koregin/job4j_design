@@ -1,0 +1,10 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<auto isOld="true" power="129" brand="Kia">
+    <contact phone="(123) 456-78-98"/>
+    <specifications>
+        <spec>черный металлик</spec>
+        <spec>автомат</spec>
+        <spec>бензин</spec>
+        <spec>хэтчбек</spec>
+    </specifications>
+</auto>
