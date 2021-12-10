@@ -8,6 +8,10 @@ import java.util.*;
 public class CSVReader {
 
     public static void main(String[] args) throws Exception {
+        handle(validate(args));
+    }
+
+    private static ArgsName validate(String[] args) {
         if (args.length != 4) {
             throw new IllegalArgumentException("Not correct arguments. Usage: java -jar -path=source.csv -delimiter=\";\" -out=stdout -filter=columns");
         }
@@ -22,7 +26,7 @@ public class CSVReader {
         if (argsCSV.get("delimiter").length() != 1) {
             throw new IllegalArgumentException("Delimiter should be not more than one character");
         }
-        handle(argsCSV);
+        return argsCSV;
     }
 
     public static void handle(ArgsName argsName) throws Exception {
