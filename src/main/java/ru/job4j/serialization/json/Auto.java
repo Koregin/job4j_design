@@ -2,7 +2,7 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import org.json.JSONObject;
 import java.util.Arrays;
 
 public class Auto {
@@ -18,6 +18,26 @@ public class Auto {
         this.brand = brand;
         this.specifications = specifications;
         this.contact = contact;
+    }
+
+    public boolean isOld() {
+        return isOld;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String[] getSpecifications() {
+        return specifications;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     @Override
@@ -52,5 +72,17 @@ public class Auto {
                 + "}";
         final Auto kiaCeedFromString = gson.fromJson(kiaCeedJson, Auto.class);
         System.out.println(kiaCeedFromString);
+
+        /* Преобразование в jsonObject */
+        JSONObject jsonAuto = new JSONObject();
+        jsonAuto.put("isOld", kiaCeed.isOld());
+        jsonAuto.put("power", kiaCeed.getPower());
+        jsonAuto.put("brand", kiaCeed.getBrand());
+        jsonAuto.put("specifications", kiaCeed.getSpecifications());
+        jsonAuto.put("contact", kiaCeed.getContact());
+        System.out.println(jsonAuto.toString());
+        /* Преобразование объекта kiaCeed в json-строку */
+        System.out.println(new JSONObject(kiaCeed));
+
     }
 }
