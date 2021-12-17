@@ -1,0 +1,2 @@
+DROP DATABASE items;
+CREATE DATABASE items;
