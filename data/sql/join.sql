@@ -44,11 +44,11 @@ from departments d
 left join emploers e on d.id = e.department_id where e.department_id is null;
 
 -- 4. Используя left и right join написать запросы, которые давали бы одинаковый результат. --
-select *
+select e.name, d.name
 from emploers e
 left join departments d on d.id = e.department_id;
 
-select *
+select e.name, d.name
 from departments d
 right join emploers e on d.id = e.department_id;
 
