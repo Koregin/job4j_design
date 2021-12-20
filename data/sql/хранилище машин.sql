@@ -43,15 +43,15 @@ left join transmissions t on c.transmission_id = t.id;
 -- Вывести отдельно детали (1 деталь - 1 запрос), которые не используются НИ в одной машине, кузова, двигатели, коробки передач.--
 select b.name
 from bodies b
-full join cars c on b.id = c.body_id
+left join cars c on b.id = c.body_id
 where c.id is null;
 
 select e.name
 from engines e
-full join cars c on e.id = c.engine_id
+left join cars c on e.id = c.engine_id
 where c.id is null;
 
 select t.name
 from transmissions t
-full join cars c on t.id = c.transmission_id
+left join cars c on t.id = c.transmission_id
 where c.id is null;
