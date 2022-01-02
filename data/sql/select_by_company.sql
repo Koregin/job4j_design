@@ -42,9 +42,8 @@ FROM company AS c
 JOIN person p ON c.id = p.company_id
 GROUP BY c.name
 HAVING count(c.name) = (
-        SELECT count(c.name) as count
-        FROM company AS c
-        JOIN person p ON c.id = p.company_id
-        GROUP BY c.name
+        SELECT count(company_id)
+        FROM person
+        GROUP BY company_id
         LIMIT 1
     );
