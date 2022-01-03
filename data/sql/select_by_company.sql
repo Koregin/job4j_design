@@ -45,5 +45,6 @@ HAVING count(c.name) = (
         SELECT count(company_id)
         FROM person
         GROUP BY company_id
+        ORDER BY count(company_id) DESC
         LIMIT 1
     );
